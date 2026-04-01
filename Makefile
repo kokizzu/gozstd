@@ -13,7 +13,7 @@ libzstd.a: $(LIBZSTD_NAME)
 $(LIBZSTD_NAME):
 ifeq ($(GOOS_GOARCH),$(GOOS_GOARCH_NATIVE))
 	rm -f $(LIBZSTD_NAME)
-	cd zstd/lib && ZSTD_LEGACY_SUPPORT=0 MOREFLAGS=$(MOREFLAGS) $(MAKE) clean libzstd.a
+	cd zstd/lib && ZSTD_LEGACY_SUPPORT=0 MOREFLAGS="-fPIC $(MOREFLAGS)" $(MAKE) clean libzstd.a
 	mv zstd/lib/libzstd.a $(LIBZSTD_NAME)
 else ifeq ($(GOOS_GOARCH),linux_amd64)
 	TARGET=x86_64-linux GOARCH=amd64 GOOS=linux $(MAKE) package-arch
@@ -56,7 +56,7 @@ package-arch: package-builder
 			ZSTD_LEGACY_SUPPORT=0 AR="zig ar" \
 			CC="zig cc -target $(TARGET)" \
 			CXX="zig cc -target $(TARGET)" \
-			MOREFLAGS=$(MOREFLAGS) \
+			MOREFLAGS="-fPIC $(MOREFLAGS)" \
 			RM="rm -rf --" \
 			make clean libzstd.a'
 	mv -f zstd/lib/libzstd.a $(LIBZSTD_NAME)
