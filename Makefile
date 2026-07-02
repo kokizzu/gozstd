@@ -25,6 +25,8 @@ else ifeq ($(GOOS_GOARCH),linux_ppc64le)
 	TARGET=x86_64-linux GOARCH=ppc64le GOOS=linux $(MAKE) package-arch
 else ifeq ($(GOOS_GOARCH),linux_musl_amd64)
 	TARGET=x86_64-linux-musl GOARCH=amd64 GOOS=linux_musl $(MAKE) package-arch
+else ifeq ($(GOOS_GOARCH),linux_riscv64)
+	TARGET=riscv64-linux GOARCH=riscv64 GOOS=linux $(MAKE) package-arch
 else ifeq ($(GOOS_GOARCH),linux_musl_arm64)
 	TARGET=aarch64-linux-musl GOARCH=arm64 GOOS=linux_musl $(MAKE) package-arch
 else ifeq ($(GOOS_GOARCH),darwin_arm64)
